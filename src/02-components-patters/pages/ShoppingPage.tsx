@@ -23,7 +23,7 @@ export const ShoppingPage = () => {
             product={product}
             className="bg-dark"
             onChange={onChangeCountProduct}
-            value={ShoppingCart[product.id]?.count || 0}
+            value={ShoppingCart[product.id]?.count | 0}
           >
             <ProductImg className="custom-image" />
             <ProductTitle title="Titulo opcional" className="color-white" />
