@@ -5,6 +5,13 @@ export interface Props {
   children: ReactElement | ReactElement[];
   className?: string;
   styles?: CSSProperties;
+  onChange?: (arg: onChangeArgs) => void,
+  value?: number
+}
+
+export interface onChangeArgs {
+  product: Product;
+  count: number
 }
 
 export interface Product {
@@ -13,7 +20,7 @@ export interface Product {
   img?: string;
 }
 export interface PropsTitle {
-  title?: string;
+  title?: number | string;
   className?: string;
 }
 
