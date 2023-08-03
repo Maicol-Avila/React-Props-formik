@@ -23,30 +23,35 @@ const product2 = {
 
 const Products: Product[] = [product, product2];
 
-interface  ProductProps extends Product {
+interface ProductProps extends Product {
   count: number;
 }
 
 export const ShoppingPage = () => {
-  const [ShoppingCart, setShoppingCart] = useState<{ [key: string]: ProductProps }>({});
+  const [ShoppingCart, setShoppingCart] = useState<{
+    [key: string]: ProductProps;
+  }>({});
 
-  console.log(ShoppingCart)
-
-  const onChangeCountProduct = ({ count, product, }: { count: number, product: Product }) => {
-    setShoppingCart(oldShoppingCart => {
-
+  const onChangeCountProduct = ({
+    count,
+    product,
+  }: {
+    count: number;
+    product: Product;
+  }) => {
+    setShoppingCart((oldShoppingCart) => {
       if (count === 0) {
-        const { [product.id]: todelete, ...rest } = oldShoppingCart
-        console.log({ todelete })
-        return rest
+        const { [product.id]: todelete, ...rest } = oldShoppingCart;
+        console.log({ todelete });
+        return rest;
       }
 
       return {
         ...oldShoppingCart,
-        [product.id]: { ...product, count }
-      }
-    })
-  }
+        [product.id]: { ...product, count },
+      };
+    });
+  };
 
   return (
     <div>
@@ -59,7 +64,7 @@ export const ShoppingPage = () => {
             product={product}
             className="bg-dark"
             onChange={onChangeCountProduct}
-            value={ShoppingCart[product.id]?.count || 0}
+            value={ShoppingCart[product.id]?.count | 0}
           >
             <ProductImg className="custom-image" />
             <ProductTitle title="Titulo opcional" className="color-white" />
@@ -74,9 +79,8 @@ export const ShoppingPage = () => {
         // onChange={(e) => setShoppingCart(e.target.value)} />
       }
       <div className="shopping-cart">
-        { 
-          Object.entries(ShoppingCart).map(([key, product]) => (
-            <ProductCard
+        {Object.entries(ShoppingCart).map(([key, product]) => (
+          <ProductCard
             key={key}
             product={product}
             className="bg-dark"
@@ -84,14 +88,11 @@ export const ShoppingPage = () => {
             value={product.count}
             onChange={onChangeCountProduct}
           >
-            <ProductImg 
-                className="custom-image" />
+            <ProductImg className="custom-image" />
             <ProductTitle />
-            <ProductButtons 
-                className="custom-buttons" />
+            <ProductButtons className="custom-buttons" />
           </ProductCard>
-          ))
-        }
+        ))}
       </div>
     </div>
   );
