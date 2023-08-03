@@ -7,52 +7,48 @@ import {
 import "../styles/custom-styles.css";
 
 import { Products } from "../data/products";
-import { useShoppingCart } from "../hooks/useShoppingCart";
+
+import styles from "../styles/styles.module.css";
+
+const products = Products[0];
 
 export const ShoppingPage = () => {
-  const { onChangeCountProduct, ShoppingCart } = useShoppingCart();
-
   return (
     <div>
       <h1>Shopping Store</h1>
       <hr />
-      <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row" }}>
-        {Products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            className="bg-dark"
-            onChange={onChangeCountProduct}
-            value={ShoppingCart[product.id]?.count | 0}
-          >
+      <ProductCard
+        key={products.id}
+        product={products}
+        className="bg-dark"
+        initialValues={{
+          count: 4,
+          maxCount: 10,
+        }}
+      >
+        {({ reset, count, increseBy, isMaxCountReached, maxCount }) => (
+          <>
             <ProductImg className="custom-image" />
             <ProductTitle title="Titulo opcional" className="color-white" />
             <ProductButtons className="custom-buttons" />
-          </ProductCard>
-        ))}
-      </div>
-      <hr />
 
-      {
-        // <input value={ counter}
-        // onChange={(e) => setShoppingCart(e.target.value)} />
-      }
-      <div className="shopping-cart">
-        {Object.entries(ShoppingCart).map(([key, product]) => (
-          <ProductCard
-            key={key}
-            product={product}
-            className="bg-dark"
-            styles={{ width: "100px" }}
-            value={product.count}
-            onChange={onChangeCountProduct}
-          >
-            <ProductImg className="custom-image" />
-            <ProductTitle />
-            <ProductButtons className="custom-buttons" />
-          </ProductCard>
-        ))}
-      </div>
+            <button onClick={() => reset()}>Reset</button>
+            {!!isMaxCountReached && count === maxCount}
+
+            <button
+              className={`${isMaxCountReached && styles.disabledBtn}`}
+              onClick={() => increseBy(2)}
+            >
+              +2
+            </button>
+
+            <button onClick={() => increseBy(-2)}>-2</button>
+            <hr />
+            <span>{`Maximo permitido, ${count}`}</span>
+          </>
+        )}
+      </ProductCard>
+      <hr />
     </div>
   );
 };

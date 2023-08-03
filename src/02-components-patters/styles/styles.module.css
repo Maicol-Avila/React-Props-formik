@@ -60,3 +60,13 @@
 .buttonAdd:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+.disabled {
+    color: gray !important;
+    background-color: gray(255, 0, 0) !important;
+    border-left: 1px solid gray !important;
+}
+.disabledBtn{
+    background-color: #f2f2f2; /* Color de fondo similar a un campo de solo lectura */
+  pointer-events: none; /* Evitar que el campo sea interactivo */
+}
